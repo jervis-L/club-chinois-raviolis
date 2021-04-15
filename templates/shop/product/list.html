@@ -1,0 +1,194 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Club Chinois Raviolis{% endif %}
+{% endblock %}
+{% block lunbo %}
+<style>
+    a{
+        color:white;
+    }
+    h2{
+        color:white;
+    }
+    :root {
+    --width: 580px;
+    --height: 386px;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    div.slide {
+        justify-content: center;
+        align-items: center;
+        width: var(--width);
+        height: var(--height);
+        overflow: hidden;
+        border-radius: 5px;
+        /* border: 2px solid; */
+        border-color:rgba(219, 198, 198, 0.753);
+        /* 给input做定位参考 */
+        /* position: relative; */
+    }
+    ul.list {
+        width: calc(var(--width) * 4);
+        height: inherit;
+        /* border: .5rem dashed blue; */
+        position: relative;
+        z-index: -1;
+        animation: move 5s ease 1s infinite;
+    }
+    @keyframes move {
+        0% {
+        transform: translate(calc( 0 * var(--width)));
+        }
+        33% {
+        transform: translate(calc( -1 * var(--width)));
+        }
+        66% {
+        transform: translate(calc( -2 * var(--width)));
+        }
+        100% {
+        transform: translate(calc( -3 * var(--width)));
+        }
+    }
+    li.item {
+        width: var(--width);
+        height: inherit;
+        box-sizing: border-box;
+        text-align: center;
+        line-height: var(--height);
+        float: left;
+    }
+    input {
+        display: none;
+    }
+    .labels {
+        position: absolute;
+        bottom: .5rem;
+        /* 注意层级 */
+        z-index: 1;
+        width: inherit;
+        /* background-color: red; */
+        justify-content: center;
+        display: none;
+    }
+    .slide:hover .labels {
+        display: flex;
+    }
+    .slide:hover {
+        cursor: pointer;
+    }
+    .labels label {
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+        margin: 0 .3rem;
+        border: .1rem solid rgb(8, 8, 8);
+        background-color: transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    input[id=pic1]:checked ~ .labels label[for=pic1],
+    input[id=pic2]:checked ~ .labels label[for=pic2],
+    input[id=pic3]:checked ~ .labels label[for=pic3] {
+        background-color:black;
+        border: .1rem solid black;
+    }
+    input[id=pic1]:checked ~ ul.list {
+        transform: translate(calc( 0 * var(--width)));
+    }
+    input[id=pic2]:checked ~ ul.list {
+        transform: translate(calc( -1 * var(--width)));
+    }
+    input[id=pic3]:checked ~ ul.list {
+        transform: translate(calc( -2 * var(--width)));
+    }
+    .slide:hover .list {
+        animation-play-state: paused;
+        animation: none;
+    }
+</style>
+{% if not category %}
+<div class="row">
+    <div class="col-md-3 col-xs-1 col-xl-3"></div>
+    <div class="col-md-6 col-xs-10 col-xl-6">
+        <div class="slide">
+            <input type="radio" name='pic' id='pic1' checked>
+            <input type="radio" name='pic' id='pic2'>
+            <input type="radio" name='pic' id='pic3'>
+            <div class="labels">
+            <label for="pic1"></label>
+            <label for="pic2"></label>
+            <label for="pic3"></label>
+            </div>
+            <ul class="list">
+            <li class="item">
+                <img class='image' src='{% static "img/1.jpg" %}'>
+            </li>
+            <li class="item" >
+                <img class='image' src='{% static "img/2.jpg" %}'>
+            </li>
+            <li class="item">
+                <img class='image' src='{% static "img/3.jpg" %}'>
+            </li>
+            <li class="item">
+                <img class='image' src='{% static "img/1.jpg" %}'>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-1 col-xl-3"></div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2 col-xs-3 col-xl-2">
+            <h2 style="color:#00458b;">Categories</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <!-- <li {% if not category %} class="active" {% else %} class="nav-item" {% endif %}>
+                    <a href="{% url "shop:product_list" %}">All</a>
+                </li> -->
+            </br>
+                {% for c in categories %}
+                    <li {% if category.slug == c.slug %} class="active" {% else %} class="nav-item" {% endif %}>
+                        <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    </li>
+                </br>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-10 col-xs-9 col-xl-10">
+            <h2 id='products' style="color:#00458b;">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
+            <div class="row" style="overflow-y:auto;background-attachment: fixed;">
+                {% for product in products %}
+                    <div class="col-md-4 col-xs-6 col-xl-4" style="color:white;">
+                        <div class="thumbnail" style="background-color: rgba(95, 158, 160, 0);border-color: rgba(95, 158, 160, 0);padding-left: 0px;padding-right: 0px;margin-left: 0px;margin-right: 0px;width:240px;background: linear-gradient(215deg,#a53e3e, #9b4949, rgb(22, 159, 201));">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{% if product.image %}{{ product.image.url }}
+                                      {% elif product.category.slug == "huntun" %}{% static "img/no_image.png" %}
+                                        {% else %}{% static "img/zhurou_jiaozi.jpg" %} {% endif %}"
+                                        style="height:230px; width:230px">
+                            </a>
+                            <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+                            €{{ product.price }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    Your shopping cart
+{% endblock %}
+
+{% block content %}
+    <h2 class='temp'>Your shopping cart</h2>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Total</th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td class="col-sm-8 col-md-6">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="{{ product.get_absolute_url }}">
+                                        <img class="media-object"
+                                             src="{% if product.image %}{{ product.image.url }}
+                                                  {% else %}{% static "img/no_image1.png" %}{% endif %}"
+                                             style="width: 72px; height: 72px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <a style="color:white;" href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                                        <span>类别: </span><span class="text-success" style="color: rgb(13, 27, 233);"><strong>{{ product.category.name }}</strong></span>
+                                        </br>
+                                        <span>数量: </span><span class="text-success" style="color: rgb(248, 116, 8);"><strong>{{ product.quantity_unit }}</strong></span>
+                                        </br>
+                                        <span>优惠信息: </span><span class="text-success" style="color: crimson;"><strong>{{ product.dt_info }}</strong></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-sm-1 col-md-1" style="text-align: center">
+                                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                    {% csrf_token %}
+                                    {% bootstrap_field item.update_quantity_form.quantity show_label=False %}
+                                    {% bootstrap_field item.update_quantity_form.update %}
+                                    {% buttons %}
+                                        <button type="submit" class="btn btn-success btn-product">
+                                            Update
+                                        </button>
+                                    {% endbuttons %}
+                                </form>
+                            </td>
+
+                            <td class="col-sm-1 col-md-1 text-center"><strong>€{{ item.price }}</strong></td>
+                            <td class="col-sm-1 col-md-1 text-center"><strong>€{{ item.total_price }}</strong></td>
+
+                            <td class="col-sm-1 col-md-1">
+                                <a href="{% url "cart:cart_remove" product.id %}" class="btn btn-danger">
+                                    <i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Remove
+                                </a>
+                            </td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+                <tr>
+                    <td>
+                        {% with len=cart|length %}
+                        {% if len > 0 %}
+                        <a href="{% url "cart:cart_remove_all" %}" class="btn btn-danger" style="background-color:black;border-color: black;padding: 16px 8px;">
+                            <i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Remove all
+                        </a>
+                        {% else %}
+                        <div class="btn btn-danger" style="background-color:black;border-color: black;padding: 16px 8px;">
+                            <i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Nothing to remove
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td class="text-center"><h3>Total</h3></td>
+                    <td class="text-center"><h3><strong>€{{ cart.get_total_price }}</strong></h3></td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>
+                        <a href="{% url "shop:product_list" %}" class="btn btn-default">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                        </a>
+                    </td>
+                    <td>
+                        {% with len=cart|length %}
+                        {% if len > 0 %}
+                        <a href="{% url "orders:order_create" %}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-play"></span> Place order
+                        </a>
+                        {% else %}
+                        <div class="btn btn-default">
+                            <span class="glyphicon glyphicon-play"></span> No order
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+{% block s %}
+<style>
+    .temp1{
+	    cursor:none;
+        pointer-events: none;
+        text-decoration: none;
+	}
+</style>
+{% endblock%}

@@ -1,0 +1,67 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-4 col-xs-2">
+
+            </div>
+            <div class="col-md-4 col-xs-8">
+                <div class="thumbnail" >
+                    <img src="{% if product.image %}{{ product.image.url }}
+                              {% else %}{% static "img/no_image1.png" %}{% endif %}"
+                         class="img-responsive">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <h3><strong>{{ product.name }}</strong></h3>
+                            </div>
+                            <div class="col-md-6 col-xs-6 price">
+                                <h3>
+                                    <label>€{{ product.price }}</label>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                数量:{{ product.quantity_unit }}
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                优惠信息:{{ product.dt_info}}
+                            </div>
+                        </div>
+                        <h2><a href="#">{{ product.name }}</a></h2>
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form cart_product_form %}
+                            {% buttons %}
+                                <button type="submit" class="btn btn-success btn-product">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
+                                </button>
+                            {% endbuttons %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+{% block s %}
+<style>
+    .temp1{
+	    cursor:none;
+        pointer-events: none;
+        text-decoration: none;
+	}
+</style>
+{% endblock%}

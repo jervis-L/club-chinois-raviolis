@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% load bootstrap3 %}
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block content %}
+
+    <div class="panel panel-primary" style="border:0px">
+        <div class="panel-heading">最新订单</div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% if order_c %}
+                <a href="{% url "orders:order_detail" order_c.id %}">
+                    <li class="list-group-item" >
+                    <div>创建时间:{{ order_c.created }} / 金额:€{{ order_c.get_total_cost }}</div>
+                    </li>
+                </a>
+                {% else %}
+                <li class="list-group-item" >
+                    <div>您还没有订单</div>
+                    </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+    {%if orders%}
+    <div class="panel panel-primary" style="border:0px;border-color:firebrick;">
+        <div class="panel-heading" style="background-color: firebrick;border-color:firebrick;">以往订单</div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for order in orders %}
+                <a href="{% url "orders:order_detail" order.id %}">
+                    <li class="list-group-item" >
+                    <div>创建时间:{{ order.created }} / 金额:€{{ order.get_total_cost }}</div>
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
+{% block s %}
+<style>
+    .temp1{
+	    cursor:none;
+        pointer-events: none;
+        text-decoration: none;
+	}
+</style>
+{% endblock%}

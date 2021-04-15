@@ -1,0 +1,111 @@
+{% load static %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" />
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> -->
+    <!-- <link href="./lunbo.css" rel="stylesheet"> -->
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+    h1,h2,h3,h4{
+        color:white;
+    }
+    /* a:hover{
+    color:white;
+    } */
+    .background{
+        background-image:url('{% static "img/back1.jpg" %}');
+        background-attachment: fixed;
+        background-size:cover;
+    }
+    .div{
+        overflow: hidden;
+    }
+    .image {
+        width:var(--width);
+        height:var(--height);
+    }
+    .temp{
+	    color:white;
+	}
+    .temp_logout{
+        color:#00458b;
+    }
+    html, body { scroll-behavior:smooth; }
+    </style>
+    <script>
+        var d = document.querySelector('#products')
+        function goto(){
+            d.scrollIntoView()
+        }
+    </script>
+</head>
+<body class="background">
+<div class="container">
+    <div class="page-header">
+
+        <h1><a class='temp' href="/" style="color:#00458b">CS Club Chinois Raviolis</a></h1>
+    </div>
+    <ol class="breadcrumb" style="background-color:rgb(12, 12, 12);color:white;">
+        <li><a class="temp" href="/">Home</a></li>
+        <li><a onclick="goto()" href="#products" class="temp1" style="color:white;">Products</a></li>
+        <li>
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    Your cart:
+                    <a href="{% url "cart:cart_detail" %}">
+                        {#| is filter in django template#}
+                        {{ total_items }} item{{ total_items|pluralize }},
+                        €{{ cart.get_total_price }}
+                    </a>
+                {% else %}
+                    Your cart is empty
+                {% endif %}
+            {% endwith %}
+        </li>
+        <li><a href="{% url "orders:check_orders" %}" style="color:white;">Check orders</a></li>
+        <li class="active">Discount info</li>
+        <nowrap style="float:right">
+            {% if not user.is_authenticated %}
+            <div><a href="/accounts/login">Login</a></div>
+            {% else %}
+            <div>欢迎光临,&nbsp;{{user.username}} &nbsp;&nbsp;<a class='temp_logout' href="/accounts/logout">Logout</a></div>
+            {% endif %}
+        </nowrap>
+    </ol>
+    <!-- <div class="panel panel-default">
+        <div class="panel-heading" style="display:grid ;background-color: rgba(255, 255, 255, 0);">
+            {% if not user.is_authenticated %}
+            <div><a href="/accounts/login">Login</a></div>
+            {% else %}
+            <div>欢迎光临,&nbsp;{{user.username}} <a class='temp_logout' href="/accounts/logout">Logout</a></div>
+            {% endif %}
+            <div>
+                {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                        Your cart:
+                        <a class='temp' href="{% url "cart:cart_detail" %}">
+                            {#| is filter in django template#}
+                            {{ total_items }} item{{ total_items|pluralize }},
+                            €{{ cart.get_total_price }}
+                        </a>
+                    {% else %}
+                        Your cart is empty.
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div> -->
+    {% block lunbo %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+{% block s %}{% endblock %}
+</html>
