@@ -17,7 +17,7 @@
                 <tr>
                     <th>Product</th>
                     <th>Quantity</th>
-                    <th class="text-center">Price</th>
+                    <th class="text-right">Price</th>
                     <th class="text-center">Total</th>
                     <th> </th>
                 </tr>
@@ -26,7 +26,7 @@
                 {% for item in cart %}
                     {% with product=item.product %}
                         <tr>
-                            <td class="col-sm-8 col-md-6">
+                            <td class="col-sm-7 col-md-5">
                                 <div class="media">
                                     <a class="thumbnail pull-left" href="{{ product.get_absolute_url }}">
                                         <img class="media-object"
@@ -36,8 +36,8 @@
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading">
-                                            <a style="color:white;" href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
-                                        <span>类别: </span><span class="text-success" style="color: rgb(13, 27, 233);"><strong>{{ product.category.name }}</strong></span>
+                                            <a style="color:rgb(173, 24, 166);" href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                                        <span>类别: </span><span class="text-success"><a style="color:bisque;" href="{{product.category.get_absolute_url}}"><strong>{{ product.category.name }}</strong></a></span>
                                         </br>
                                         <span>数量: </span><span class="text-success" style="color: rgb(248, 116, 8);"><strong>{{ product.quantity_unit }}</strong></span>
                                         </br>
@@ -45,8 +45,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="col-sm-1 col-md-1" style="text-align: center">
-                                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            <td class="col-sm-2 col-md-2" style="text-align: left">
+                                <form action="{% url "cart:cart_add" product.id %}" method="post" style="width:70px;">
                                     {% csrf_token %}
                                     {% bootstrap_field item.update_quantity_form.quantity show_label=False %}
                                     {% bootstrap_field item.update_quantity_form.update %}
@@ -58,7 +58,7 @@
                                 </form>
                             </td>
 
-                            <td class="col-sm-1 col-md-1 text-center"><strong>€{{ item.price }}</strong></td>
+                            <td class="col-sm-1 col-md-1 text-right"><strong>€{{ item.price }}</strong></td>
                             <td class="col-sm-1 col-md-1 text-center"><strong>€{{ item.total_price }}</strong></td>
 
                             <td class="col-sm-1 col-md-1">
@@ -92,12 +92,12 @@
                     <td>  </td>
                     <td>  </td>
                     <td>  </td>
-                    <td>
+                    <td class="text-center">
                         <a href="{% url "shop:product_list" %}" class="btn btn-default">
                         <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         {% with len=cart|length %}
                         {% if len > 0 %}
                         <a href="{% url "orders:order_create" %}" class="btn btn-default">
