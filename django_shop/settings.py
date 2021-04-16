@@ -26,6 +26,7 @@ SECRET_KEY = '23szcx4&aha^m_l^lwuf!vg%-prmg$j_by_c7le%k#6b(+u3k3'
 # 修改secret_key会导致session corrupted, 时间起见,暂不修改(数据库)
 # SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY','q1f3!@1u1vzhigliat-pqon5d2zvj260&8(*-8b-)tvxi+r-kl')
 # SECURITY WARNING: don't run with debug turned on in production!
+# 代码上传时改为False
 DEBUG = False
 
 ALLOWED_HOSTS = ['cs-clubchinois-raviolis.herokuapp.com','127.0.0.1']
@@ -139,6 +140,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# 本地测试时用STATICFILES,不然admin的静态文件无法提取，有点奇怪
+# 代码上传时注释掉，以免重复
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

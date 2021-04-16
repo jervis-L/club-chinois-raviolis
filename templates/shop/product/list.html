@@ -155,7 +155,7 @@
 
     <div class="row">
         <div class="col-md-2 col-xs-3 col-xl-2">
-            <h2 style="color:#00458b;">Categories</h2>
+            <h2 id='products' style="color:#00458b;">Categories</h2>
             <ul class="nav nav-pills nav-stacked">
                 <!-- <li {% if not category %} class="active" {% else %} class="nav-item" {% endif %}>
                     <a href="{% url "shop:product_list" %}">All</a>
@@ -171,7 +171,7 @@
         </div>
 
         <div class="col-md-10 col-xs-9 col-xl-10">
-            <h2 id='products' style="color:#00458b;">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
+            <h2 style="color:#00458b;">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
             <div class="row" style="overflow-y:auto;background-attachment: fixed;">
                 {% for product in products %}
                     <div class="col-md-4 col-xs-6 col-xl-4" style="color:white;">
