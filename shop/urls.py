@@ -14,7 +14,7 @@ oauth2_endpoint_views = [
 
 app_name='shop'
 urlpatterns = [
-    url(r'^$', views.product_list,
+    url(r'^shop$', views.product_list,
         name='product_list'),
     # [-\w]+匹配数字和字母下划线的多个字符
     url(r'^category_(?P<category_slug>[-\w]+)/$',
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^product_(?P<product_id>\d+)/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
+    url(r'^$',views.viarezo_check,name='viarezo_check'),
     path('api/hello', ApiEndpoint.as_view()),  # an example resource endpoint
     url(r'^secret', views.secret_page, name='secret'),
     ]

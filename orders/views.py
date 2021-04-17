@@ -37,7 +37,7 @@ def order_confirm(request):
         orders= OrderItem.objects.filter(order=order)
         return render(request,'orders/order/order_detail.html',{'order':order,'orders':orders})
     else:
-        return redirect('/')
+        return redirect('shop:product_list')
         
 def check_orders(request):
     # 没有order的时候不能check_order,写个装饰器？还是有一个None页面

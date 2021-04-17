@@ -54,6 +54,10 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # before authentification middleware的话会
+    # it will try to authenticate user with the OAuth2 access token and 
+    # set request.user and request._cached_user fields 
+    # so that AuthenticationMiddleware (when active) will not try to get user from the session. 
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,7 +126,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -155,7 +158,9 @@ AUTH_USER_MODEL='users.User'
 
 # LOGIN_URL='/admin/login/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=https://cs-clubchinois-raviolis.herokuapp.com/&state=default&scope=default'
+
+# LOGIN_REDIRECT_URL = '/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 

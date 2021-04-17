@@ -49,10 +49,10 @@
 <div class="container">
     <div class="page-header">
 
-        <h1><a class='temp' href="/" style="color:#00458b">CS Club Chinois Raviolis</a></h1>
+        <h1><a class='temp' href="{% url "shop:product_list" %}" style="color:#00458b">CS Club Chinois Raviolis</a></h1>
     </div>
     <ol class="breadcrumb" style="background-color:rgb(12, 12, 12);color:white;">
-        <li><a class="temp" href="/">Home</a></li>
+        <li><a class="temp" href="{% url "shop:product_list" %}">Home</a></li>
         <li><a onclick="goto()" href="#products" class="temp1" style="color:white;">Products</a></li>
         <li>
             {% with total_items=cart|length %}
@@ -71,8 +71,9 @@
         <li><a href="{% url "orders:check_orders" %}" style="color:white;">Check orders</a></li>
         <li class="active">Discount info</li>
         <nowrap style="float:right">
-            {% if not user.is_authenticated %}
-            <div><a href="/accounts/login">Login</a></div>
+            {% if user.is_anonymous %}
+            <div><a href="https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=https://cs-clubchinois-raviolis.herokuapp.com/&state=default&scope=default">Login</a></div>
+            <!-- <div><a href="/accounts/login">Login</a></div> -->
             {% else %}
             <div>欢迎光临,&nbsp;{{user.username}} &nbsp;&nbsp;<a class='temp_logout' href="/accounts/logout">Logout</a></div>
             {% endif %}
