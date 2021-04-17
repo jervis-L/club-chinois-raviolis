@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^product_(?P<product_id>\d+)/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
+        # ?code=(?P<request_code>[A-Z][a-z][0-9]+)&state=default
     url(r'^$',views.viarezo_check,name='viarezo_check'),
     path('api/hello', ApiEndpoint.as_view()),  # an example resource endpoint
     url(r'^secret', views.secret_page, name='secret'),

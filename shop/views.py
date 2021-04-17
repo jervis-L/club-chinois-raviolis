@@ -58,8 +58,7 @@ def login_user(request, user):
 
 # 这里对应redirect-url
 def viarezo_check(request):
-    request_code = request.GET.get('code')
-    # print(request_code)
+    request_code=request.GET.get('code')
     if request_code:
         # state = request.GET.get('state')
         oauth_v=oauth_viarezo()
