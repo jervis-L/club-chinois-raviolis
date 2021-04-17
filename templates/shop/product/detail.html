@@ -16,7 +16,17 @@
             <div class="col-md-4 col-xs-8">
                 <div class="thumbnail" >
                     <img src="{% if product.image %}{{ product.image.url }}
-                              {% else %}{% static "img/no_image1.png" %}{% endif %}"
+                                {% elif product.category.slug == "zhurou_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                {% elif product.category.slug == "niurou_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                {% elif product.category.slug == "jidan_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                {% elif product.category.slug == "qita_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                {% elif product.category.slug == "jiachang_5" %}{% static "img/plat1.png" %}
+                                {% elif product.category.slug == "jiachang_6" %}{% static "img/plat1.png" %}
+                                {% elif product.category.slug == "jiachang_8" %}{% static "img/plat1.png" %}
+                                {% elif product.category.slug == "jiachang_10" %}{% static "img/plat1.png" %}
+                                {% elif product.category.slug == "jiachang_12" %}{% static "img/plat1.png" %}   
+                                {% elif product.category.slug == "jiachang_16" %}{% static "img/plat1.png" %}
+                                {% else %}{% static "img/no_image1.png" %}{% endif %}"
                          class="img-responsive">
                     <div class="caption">
                         <div class="row">

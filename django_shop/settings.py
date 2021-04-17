@@ -157,8 +157,10 @@ CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL='users.User'
 
 # LOGIN_URL='/admin/login/'
-
+# 服务器端
 LOGIN_URL='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=https://cs-clubchinois-raviolis.herokuapp.com/&state=default&scope=default'
+
+# LOGIN_URL='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=http://127.0.0.1:8000/&state=default&scope=default'
 
 # LOGIN_REDIRECT_URL = '/'
 

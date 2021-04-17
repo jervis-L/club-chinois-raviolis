@@ -47,9 +47,11 @@
 </head>
 <body class="background">
 <div class="container">
-    <div class="page-header">
-
-        <h1><a class='temp' href="{% url "shop:product_list" %}" style="color:#00458b">CS Club Chinois Raviolis</a></h1>
+    <div class="page-header" style="margin-top: 10px;margin-bottom: 10px;">
+        <!-- <div class="col-md-3"> -->
+        <a class='temp' href="{% url "shop:product_list" %}"><img class="image-responsive" style="width:340px;" src="{% static "img/logo.png" %}"></a>
+        <!-- </div> 
+        <div class="col-md-9"></div> -->
     </div>
     <ol class="breadcrumb" style="background-color:rgb(12, 12, 12);color:white;">
         <li><a class="temp" href="{% url "shop:product_list" %}">Home</a></li>
@@ -72,10 +74,11 @@
         <li class="active">Discount info</li>
         <nowrap style="float:right">
             {% if user.is_anonymous %}
-            <div><a href='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=https://cs-clubchinois-raviolis.herokuapp.com/&state=default&scope=default'>Login</a></div>
+            <div><a href='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=https://cs-clubchinois-raviolis.herokuapp.com/&state=default&scope=default'>Se connecter avec Viarézo</a></div>
+            <!-- <div><a href='https://auth.viarezo.fr/oauth/authorize/?response_type=code&client_id=9f812cb77e1b92e5943ce4369d4c8ec187905105&redirect_uri=http://127.0.0.1:8000/&state=default&scope=default'>Se connecter avec Viarézo</a></div> -->
             <!-- <div><a href="/accounts/login">Login</a></div> -->
             {% else %}
-            <div>欢迎光临,&nbsp;{{user.username}} &nbsp;&nbsp;<a class='temp_logout' href="/accounts/logout">Logout</a></div>
+            <div>欢迎光临,&nbsp;{{user.username}} &nbsp;&nbsp;<a class='temp_logout' href="/accounts/logout" style="color:white">Logout</a></div>
             {% endif %}
         </nowrap>
     </ol>

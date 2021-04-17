@@ -178,8 +178,17 @@
                         <div class="thumbnail" style="background-color: rgba(95, 158, 160, 0);border-color: rgba(95, 158, 160, 0);padding-left: 0px;padding-right: 0px;margin-left: 0px;margin-right: 0px;width:240px;background: linear-gradient(215deg,#a53e3e, #9b4949, rgb(22, 159, 201));">
                             <a href="{{ product.get_absolute_url }}">
                                 <img src="{% if product.image %}{{ product.image.url }}
-                                      {% elif product.category.slug == "huntun" %}{% static "img/no_image.png" %}
-                                        {% else %}{% static "img/zhurou_jiaozi.jpg" %} {% endif %}"
+                                      {% elif product.category.slug == "zhurou_jiaozi" %}{% static "img/zhurou_jiaozi.jpg" %}
+                                      {% elif product.category.slug == "niurou_jiaozi" %}{% static "img/zhurou_jiaozi.jpg" %}
+                                      {% elif product.category.slug == "jidan_jiaozi" %}{% static "img/zhurou_jiaozi.jpg" %}
+                                      {% elif product.category.slug == "qita_jiaozi" %}{% static "img/zhurou_jiaozi.jpg" %}
+                                      {% elif product.category.slug == "jiachang_5" %}{% static "img/plat.png" %}
+                                      {% elif product.category.slug == "jiachang_6" %}{% static "img/plat.png" %}
+                                      {% elif product.category.slug == "jiachang_8" %}{% static "img/plat.png" %}
+                                      {% elif product.category.slug == "jiachang_10" %}{% static "img/plat.png" %}
+                                      {% elif product.category.slug == "jiachang_12" %}{% static "img/plat.png" %}   
+                                      {% elif product.category.slug == "jiachang_16" %}{% static "img/plat.png" %}
+                                      {% else %}{% static "img/no_image.png" %} {% endif %}"
                                         style="height:230px; width:230px">
                             </a>
                             <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>

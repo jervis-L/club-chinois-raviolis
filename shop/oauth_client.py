@@ -7,6 +7,7 @@ class oauth_viarezo():
         self.client_id='9f812cb77e1b92e5943ce4369d4c8ec187905105'
         self.client_secret='9ecedfb573ded79960cc663be3fe4777575e7b8f'
         self.redirect_uri='https://cs-clubchinois-raviolis.herokuapp.com/'
+        # self.redirect_uri='http://127.0.0.1:8000/'
         # access_token本应存到session中,这里暂时用作内部变量
         # session的使用不是特别明晰,有时会出错
     def get_access_token(self, code):

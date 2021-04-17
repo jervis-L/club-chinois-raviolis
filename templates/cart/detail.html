@@ -31,7 +31,17 @@
                                     <a class="thumbnail pull-left" href="{{ product.get_absolute_url }}">
                                         <img class="media-object"
                                              src="{% if product.image %}{{ product.image.url }}
-                                                  {% else %}{% static "img/no_image1.png" %}{% endif %}"
+                                             {% elif product.category.slug == "zhurou_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                             {% elif product.category.slug == "niurou_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                             {% elif product.category.slug == "jidan_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                             {% elif product.category.slug == "qita_jiaozi" %}{% static "img/zhurou_jiaozi1.jpg" %}
+                                             {% elif product.category.slug == "jiachang_5" %}{% static "img/plat.png" %}
+                                            {% elif product.category.slug == "jiachang_6" %}{% static "img/plat.png" %}
+                                            {% elif product.category.slug == "jiachang_8" %}{% static "img/plat.png" %}
+                                            {% elif product.category.slug == "jiachang_10" %}{% static "img/plat.png" %}
+                                            {% elif product.category.slug == "jiachang_12" %}{% static "img/plat.png" %}   
+                                            {% elif product.category.slug == "jiachang_16" %}{% static "img/plat.png" %}
+                                            {% else %}{% static "img/no_image1.png" %}{% endif %}"
                                              style="width: 72px; height: 72px;">
                                     </a>
                                     <div class="media-body">
