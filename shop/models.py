@@ -5,6 +5,7 @@ from django.db import models
 # 人类可读的单数或者复数名等等。所有的这些都是非必须的，甚至元数据本身对模型也是非必须的。
 # 可以添加约束，constraints等等
 class Category(models.Model):
+    # 应该设置unique的
     name = models.CharField(max_length=200,
                             db_index=True)
     #slug由数字字母下划线组成，用在url中 

@@ -14,7 +14,7 @@ class Order(models.Model):
 
     def __str__(self):
         return 'Order {}'.format(self.id)
-
+     
     # 在html中似乎不能调用related_name
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -28,7 +28,8 @@ class OrderItem(models.Model):
                                 related_name='order_items',on_delete=models.CASCADE)
     price = models.FloatField()
     quantity = models.PositiveIntegerField(default=1)
-
+    # 应该直接加一项total_cost,方便之后直接用数据库统计,
+    # 需要改orderItem的创建方式,以及最好order的也改，不过其实问题不大
     def __str__(self):
         return '{}'.format(self.id)
 
